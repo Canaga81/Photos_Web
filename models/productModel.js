@@ -7,7 +7,6 @@ const photoSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-
     description: {
         type: String,
         required: true,
@@ -22,4 +21,4 @@ const photoSchema = new mongoose.Schema({
 
 const Photos = mongoose.model('Photos', photoSchema);
 
-module.exports = Photos
+module.exports = Photos;

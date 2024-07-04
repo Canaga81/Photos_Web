@@ -1,9 +1,25 @@
 const getIndexPage = (req, res) => {
-    res.status(200).render('index');
+    res.status(200).render('index', {
+        link: "index"
+    });
 }
 
 const getAboutPage = (req, res) => {
-    res.status(200).render('about');
+    res.status(200).render('about', {
+        link: "index"
+    });
 }
 
-module.exports = {getIndexPage, getAboutPage}
+const getRegisterPage = (req, res) => {
+    res.status(200).render('register', {
+        link: "register"
+    });
+}
+
+const getLoginPage = (req, res) => {
+    res.status(200).render('login', {
+        link: "login"
+    });
+}
+
+module.exports = {getIndexPage, getAboutPage, getRegisterPage, getLoginPage}
