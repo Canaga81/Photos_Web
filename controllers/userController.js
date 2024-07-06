@@ -1,11 +1,12 @@
 const Users = require('../models/userModel.js');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const createUser = async (req, res) => {
 
     try {
         const user = await Users.create(req.body);
-        res.status(201).json(user);
+        res.redirect('/login');
     } catch (error) {
         res.status(500).json({message: error.message})
     }
@@ -29,7 +30,15 @@ const loginUser = async (req, res) => {
         }
 
         if(same) {
-            res.status(200).send('You are logged in.');
+
+            const token = createToken(user._id)
+            res.cookie('jwt', token, {
+                httpOnly: true,
+                maxAge: 1000*60*60*24
+            })
+
+            res.redirect('/users/dashboard');
+
         }
         else {
             res.status(401).json({message: "Passwords are not matched !"});
@@ -41,4 +50,16 @@ const loginUser = async (req, res) => {
 
 }
 
-module.exports = {createUser, loginUser}
+const createToken = (userId) => {
+    return jwt.sign({userId}, process.env.JWT_SECRET, {
+        expiresIn: '1d'
+    })
+}
+
+const getDashboardPage = (req, res) => {
+    res.status(200).render('dashboard', {
+        link: "dashboard"
+    });
+}
+
+module.exports = {createUser, loginUser, getDashboardPage}

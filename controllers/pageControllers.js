@@ -1,13 +1,17 @@
 const getIndexPage = (req, res) => {
+
     res.status(200).render('index', {
         link: "index"
     });
+
 }
 
 const getAboutPage = (req, res) => {
+
     res.status(200).render('about', {
-        link: "index"
+        link: "about"
     });
+
 }
 
 const getRegisterPage = (req, res) => {
@@ -17,9 +21,22 @@ const getRegisterPage = (req, res) => {
 }
 
 const getLoginPage = (req, res) => {
+
     res.status(200).render('login', {
         link: "login"
     });
+
 }
 
-module.exports = {getIndexPage, getAboutPage, getRegisterPage, getLoginPage}
+const getLogoutPage = (req, res) => {
+
+    res.cookie('jwt', "", {
+        maxAge: 1
+    });
+
+    res.redirect('/');
+
+}
+
+
+module.exports = {getIndexPage, getAboutPage, getRegisterPage, getLoginPage, getLogoutPage}
