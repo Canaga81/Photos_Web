@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const {Schema} = mongoose;
 
 const userSchema = new mongoose.Schema({
 
@@ -8,24 +9,36 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Username area is required"],
         lowercase: true,
-        validate: [validator.isAlphanumeric, "Only Alphanumeric characters"]
+        validate: [validator.isAlphanumeric, "Only Alphanumeric characters"],
     },
     email: {
         type: String,
         required: [true, "Email area is required"],
         unique: true,
-        validate: [validator.isEmail, "Valid Email is required"]
+        validate: [validator.isEmail, "Valid Email is required"],
     },
     password: {
         type: String,
         required: [true, "Password area is required"],
-        minLength: [4, "At least 4 characters"]
+        minLength: [4, "At least 4 characters"],
     },
+    followers: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'user',
+        },
+    ],
+    followings: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'user',
+        },
+    ],
 
 },
     {
-        timestamps: true
-    }
+        timestamps: true,
+    },
 );
 
 

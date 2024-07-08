@@ -15,9 +15,9 @@
                       <li class="<%= link === 'about' && 'active' %>"><a href="/about">About</a></li>
                       <li class="<%= link === 'photos' && 'active' %>"><a href="/photos">Photos</a></li>
                       
-                      
 
                       <% if(user) { %>
+                        <li class="<%= link === 'users' && 'active' %>"><a href="/users">Users</a></li>
                         <li class="<%= link === 'dashboard' && 'active' %>"><a href="/users/dashboard">Dashboard</a></li> 
                         <li ><a href="/logout">Logout</a></li>
                       <%} else  { %>

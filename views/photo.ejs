@@ -19,12 +19,12 @@
                   <div class="titlepage text_align_left">
                      <h3 style="font-size: 24px !important; color: white !important;"><%= photo.name %></h3>
                      <p style="font-size: 18px !important; color: white !important;"><%= photo.description.substring(0, 80) + "..." %></p>
-                     <a class="read_more" href="about.html">Read More</a>
+                     <a class="read_more" href="/users/<%=photo.user._id %>">Artist: <%=photo.user.username %></a>
                   </div>
                </div>
                <div class="col-md-6">
                   <div class="about_img">
-                     <figure><img src="/images/about_img.png" alt="#" /></figure>
+                     <figure><img style="width: 450px; height: 300px;" src="<%=photo.url %>" alt="<%=photo.name %>"></figure>
                   </div>
                </div>
             </div>

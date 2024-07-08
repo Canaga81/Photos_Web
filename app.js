@@ -9,6 +9,14 @@ const pageRoute = require('./routes/pageRoute.js');
 const photoRoute = require('./routes/photoRoute.js');
 const userRoute = require('./routes/userRoute.js');
 const { checkUser } = require('./middlewares/authMiddleware.js');
+const fileUpload = require('express-fileupload');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API,
+    api_secret: process.env.CLOUD_API_SECRET
+})
 
 conn();
 
@@ -20,6 +28,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
+app.use(fileUpload({useTempFiles: true}))
 
 //^ routes
 app.use('*', checkUser);
