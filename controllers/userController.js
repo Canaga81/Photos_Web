@@ -101,9 +101,11 @@ const getAllUsers = async (req, res) => {
 const getAUser = async (req, res) => {
 
     try {
+
         const user = await Users.findById({_id: req.params.id});
         const photos = await Photos.find({user: user._id});
         res.status(200).render('user', {user, photos, link: "users"})
+        
     } catch (error) {
         res.status(500).json({message: error.message})
     }
@@ -146,19 +148,23 @@ const unfollow = async (req, res) => {
     try {
 
         let user = await Users.findByIdAndUpdate(
+
             { _id: req.params.id },
             {
                 $pull: { followers: res.locals.user._id }
             },
             { new: true }
+
         )
 
         user = await Users.findByIdAndUpdate(
+
             { _id: res.locals.user._id },
             {
                 $pull: {followings: req.params.id }
             },
             { new: true }
+
         )
 
         res.status(200).json({
